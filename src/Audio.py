@@ -63,9 +63,10 @@ class AudioModule:
         """
         suma = 0.0
         for i, amp in enumerate(armonicos, start=1):
-            suma += amp * np.sin(i * 2*np.pi*nota * t / self.SAMPLE_RATE)
-
-        return (suma*0.1)/max(1,keyCounter)
+            suma += amp * np.sin(i * t)
+            
+        # Normalize the result to avoid clipping and scale by keyCounter
+        return suma * 0.1 / max(1, keyCounter)
     
     def sfx_play_loop(self, key:str) -> None:
         """

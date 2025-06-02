@@ -5,7 +5,7 @@ from src import Audio
 from src import Ventana
 
 if __name__ == "__main__":
-    GLOBAL_OCTAVA = 5
+    GLOBAL_OCTAVA = 3
 
     AudioControler = Audio.AudioModule()
     AudioControler.sfx_updateOctava(GLOBAL_OCTAVA)
