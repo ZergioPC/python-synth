@@ -2,32 +2,7 @@ import tkinter as tk
 import sounddevice as sd
 import numpy as np
 from src import Audio
-#from src import Ventana
-
-def drawKeys(notas_negras:list[str],notas_freq:dict[float], botones:dict[tk.Button], frame:tk.Tk) -> None:
-    for idx, key in enumerate(notas_freq):
-        btn = tk.Button(
-            frame,
-            text=key.upper(),
-            bg="black" if key in notas_negras else "white",
-            fg="white" if key in notas_negras else "black",
-            activebackground="grey",
-            width=5,
-            height=8,
-            relief="solid",
-            borderwidth=1,
-        )
-        botones[key] = btn
-        btn.place(x=30 + idx * 50, y=330)  # space buttons horizontally
-
-def cambioDeOctava(n:int, label:tk.Label):
-    global oct
-    if n == 1 and oct != 8:
-        oct += 1
-    elif n == 2 and oct != 1:
-        oct -= 1
-    label.config(text=str(oct))
-
+from src import Ventana
 
 if __name__ == "__main__":
     GLOBAL_OCTAVA = 5
@@ -36,10 +11,31 @@ if __name__ == "__main__":
     AudioControler.sfx_updateOctava(GLOBAL_OCTAVA)
 
     root = tk.Tk()
-    root.geometry("1075x600")
     root.title("Sintetizador de Teclado")
+    root.geometry("1075x600")
 
-    drawKeys(AudioControler.NOTAS_NEGRAS ,AudioControler.NOTAS, AudioControler.UI_BTN_NOTAS, root)
+    def updateGlobalOctava(uiReff:int):
+        global GLOBAL_OCTAVA
+        GLOBAL_OCTAVA = uiReff
+        AudioControler.sfx_updateOctava(GLOBAL_OCTAVA)
+
+    def updateArmonicos(value:float, idx:int):
+        AudioControler.ARMONICOS[idx] = value
+
+    UiControler = Ventana.VentanaModule(
+        root, GLOBAL_OCTAVA,
+        updateGlobalOctava,
+        updateArmonicos,
+        AudioControler.UI_armonico_add,
+        AudioControler.UI_armonico_del
+        )
+    UiControler.drawInterfaz()
+    UiControler.drawKeys(
+        AudioControler.NOTAS_NEGRAS,
+        AudioControler.NOTAS,
+        AudioControler.UI_BTN_NOTAS,
+        root
+    )
 
     root.bind("<KeyPress>", AudioControler.sfx_on_key_press)
     root.bind("<KeyRelease>", AudioControler.sfx_on_key_release)

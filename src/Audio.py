@@ -29,7 +29,7 @@ class AudioModule:
     KEYS_PRESSED_COUNTER = 0
     SAMPLE_RATE = 44100
 
-    ARMONICOS = [66,63,65,56,58,66,55,54,60,56,54,45,40,38,46]
+    ARMONICOS = [0]
 
     # Estado de las teclas
     isKeyPress = {key: False for key in NOTAS}
