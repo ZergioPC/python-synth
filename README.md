@@ -48,4 +48,9 @@ pip install -r requirements.txt
 
 ## 📬 Contacto
 
+Hecho por:
+
+* 🦊 Juan Pablo Zorro
+* 🧑🏻‍💻 Sergio Danilo Palacios
+
 Para preguntas o sugerencias, puedes abrir un [Issue](https://github.com/ZergioPC/python-synth/issues) en el repositorio.
