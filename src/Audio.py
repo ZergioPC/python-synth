@@ -21,7 +21,10 @@ class AudioModule:
         "k":65.42   # Do (Octava mayor)
     }
 
+    NOTAS_NEGRAS = ["w","e","t","y","u"]
+
     NOTAS = NOTAS_OG
+    UI_BTN_NOTAS = {}
 
     KEYS_PRESSED_COUNTER = 0
     SAMPLE_RATE = 44100
@@ -101,10 +104,10 @@ class AudioModule:
     def sfx_on_key_press(self, event) -> None:
         key = event.char.lower()
         if key in self.NOTAS and not self.isKeyPress[key]:
-            print(self.NOTAS[key])
             self.isKeyPress[key] = True
             self.KEYS_PRESSED_COUNTER += 1
             threading.Thread(target=self.sfx_play_loop, args=(key,), daemon=True).start()
+            self.UI_BTN_NOTAS[key].config(bg="grey")
 
     def sfx_on_key_release(self, event) -> None:
         key = event.char.lower()
@@ -115,6 +118,10 @@ class AudioModule:
                 self.active_streams[key].stop()
                 self.active_streams[key].close()
                 del self.active_streams[key]
+            if key in self.NOTAS_NEGRAS:
+                self.UI_BTN_NOTAS[key].config(bg="black")
+            else:
+                self.UI_BTN_NOTAS[key].config(bg="white")
 
 if __name__ == "__main__":
     import tkinter as tk
