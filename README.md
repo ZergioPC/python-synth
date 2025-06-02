@@ -22,6 +22,45 @@ Instala las dependencias utilizando el archivo `requirements.txt`:
 pip install -r requirements.txt
 ```
 
+#### En caso de no estar Tkinter instalado ⚠️
+
+* **Windows**
+
+  ```bash
+  pip install tk
+  ```
+
+* **Debian/Ubuntu**
+
+  ```bash
+  sudo apt update
+  sudo apt install python3-tk
+  ```
+
+* **Fedora**
+
+  ```bash
+  sudo dnf install python3-tkinter
+  ```
+
+* **Arch Linux**
+
+  ```bash
+  sudo pacman -S tk
+  ```
+
+* **CentOS/RHEL**
+
+  ```bash
+  sudo yum install python3-tkinter
+  ```
+
+* **macOS (con Homebrew)**
+
+  ```bash
+  brew install python-tk
+  ```
+
 ---
 
 ## 🎛️ Uso
